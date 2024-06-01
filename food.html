@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #f0f0f0, #cce7ff);
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: rgba(0, 73, 144, 1);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px,
+                        rgba(0, 73, 144, 0.5) 5px 10px 15px;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 18px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(0, 0, 73, 1);
+            border-radius: 5px;
+        }
+
+        .wrapper {
+            height: calc(100vh - 60px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .typing-demo {
+            width: 80%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.8);
+            border: 2px solid #004990;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            font-size: 1.5em;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .highlight {
+            background-color: yellow;
+            cursor: pointer;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .image-container {
+            flex-basis: 45%;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="person.html">Person</a>
+        <a href="food.html">Food</a>
+    </div>
+
+    <div class="wrapper">
+        <div class="image-container">
+            <img src="https://media.defense.gov/2020/Apr/30/2002291608/1920/1080/0/200501-F-PO640-0034.JPG" alt="Healthy Eating Ingredients">
+        </div>
+        <div class="wrapper">
+            <div class="typing-demo" id="typing-demo">
+                <!-- The text will be inserted here by JavaScript -->
+            </div>
+        </div>
+    
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+    
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                <p id="modal-text"></p>
+            </div>
+
+    <script>
+        const text = "La comida es muy importante para la salud porque si no la comemos podemos morir.También es importante comer varios tipos de alimentos, para que podamos tomar vitaminas y nutricionales muy importante para mantenernos sanos, la comida también nos puede dar nutrientes que también son muy importantes para que estemos vivos. ";
+        const definitions = {
+            "La": "The",
+    "comida": "food",
+    "es": "is",
+    "muy": "very",
+    "importante": "important",
+    "para": "for",
+    "la": "the",
+    "salud": "health",
+    "porque": "because",
+    "si": "if",
+    "no": "not",
+    "la": "it",
+    "comemos": "we eat",
+    "podemos": "we can",
+    "morir": "die",
+    "También": "Also",
+    "es": "is",
+    "importante": "important",
+    "comer": "to eat",
+    "varios": "various",
+    "tipos": "types",
+    "de": "of",
+    "alimentos": "foods",
+    "para": "so that",
+    "podamos": "we can",
+    "tomar": "take",
+    "vitaminas": "vitamins",
+    "y": "and",
+    "nutricionales": "nutrients",
+    "muy": "very",
+    "importantes": "important",
+    "para": "for",
+    "mantenernos": "keeping us",
+    "sanos": "healthy",
+    "la": "the",
+    "comida": "food",
+    "también": "also",
+    "nos": "us",
+    "puede": "can",
+    "dar": "give",
+    "nutrientes": "nutrients",
+    "que": "that",
+    "también": "also",
+    "son": "are",
+    "muy": "very",
+    "importantes": "important",
+    "para": "for",
+    "que": "that",
+    "estemos": "we are",
+    "vivos": "alive"
+        };
+
+        let index = 0;
+
+        function typeText() {
+            if (index < text.length) {
+                const char = text.charAt(index);
+                if (char === ' ') {
+                    document.getElementById("typing-demo").innerHTML += char;
+                } else {
+                    const span = document.createElement('span');
+                    span.classList.add('highlight');
+                    span.textContent = char;
+                    document.getElementById("typing-demo").appendChild(span);
+                }
+                index++;
+                setTimeout(typeText, 5); // Adjust typing speed here
+            } else {
+                wrapWords();
+            }
+        }
+
+        function wrapWords() {
+            const demo = document.getElementById("typing-demo");
+            const words = demo.textContent.split(' ');
+            demo.innerHTML = '';
+
+            words.forEach(word => {
+                const span = document.createElement('span');
+                span.classList.add('highlight');
+                span.textContent = word + ' ';
+                demo.appendChild(span);
+
+                span.addEventListener('click', () => {
+                    showDefinition(word.trim());
+                });
+            });
+        }
+
+        function showDefinition(word) {
+            const modal = document.getElementById('modal');
+            const modalText = document.getElementById('modal-text');
+            modalText.textContent = definitions[word] || "No definition found.";
+            modal.style.display = 'block';
+        }
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            typeText();
+        });
+    </script>
+</body>
+</html>
